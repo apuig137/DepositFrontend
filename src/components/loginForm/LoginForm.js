@@ -9,11 +9,6 @@ const LoginForm = ({ setLogin }) => {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        if(email === "" || password === ""){
-            setError(true)
-            return
-        }
-
         try {
             const response = await fetch('https://depositbackend.onrender.com/session/login', {
                 method: 'POST',
@@ -23,7 +18,6 @@ const LoginForm = ({ setLogin }) => {
                 body: JSON.stringify({ email, password }) // Enviar los datos del formulario en formato JSON
             });
 
-            console.log("paso 1")
             if (response.ok) {
                 console.log('Successful login');
                 setLogin(true); // Establecer el estado de inicio de sesión como verdadero

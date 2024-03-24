@@ -11,7 +11,7 @@ const [login, setLogin] = useState(false)
       {
         !login
           ? <LoginForm setLogin={setLogin}/>
-          : <Home/>
+          : <Home setLogin={setLogin}/>
       }
     </div>
     

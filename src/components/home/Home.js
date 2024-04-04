@@ -7,7 +7,7 @@ const Home = ({ products, sessionId, setProducts, setLogin, setShowAddProductFor
 
     const getProducts = async () => {
         try {
-            const responseProducts = await fetch("http://depositbackend.onrender/products")
+            const responseProducts = await fetch("https://depositbackend.onrender/products")
             const data = await responseProducts.json();
             const productsApi = data.payload
             if (responseProducts.ok) {
@@ -20,7 +20,7 @@ const Home = ({ products, sessionId, setProducts, setLogin, setShowAddProductFor
 
     const deleteProduct = async (productId) => {
         try {
-            const responseDelete = await fetch(`http://depositbackend.onrender/products/${productId}`, {
+            const responseDelete = await fetch(`https://depositbackend.onrender/products/${productId}`, {
                 method: "DELETE"
             });
             const data = await responseDelete.json();

@@ -22,7 +22,7 @@ const AddProductForm = ({ setShowAddProductForm, sessionId, setLogin }) => {
     const addProduct = async (e) => {
         e.preventDefault()
         try {
-            const response = await fetch('http://depositbackend.onrender/products/', {
+            const response = await fetch('https://depositbackend.onrender/products/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

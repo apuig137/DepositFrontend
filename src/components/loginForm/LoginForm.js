@@ -9,7 +9,7 @@ const LoginForm = ({ setLogin, setSessionId }) => {
         e.preventDefault()
 
         try {
-            const response = await fetch('http://depositbackend.onrender/session/login', {
+            const response = await fetch('https://depositbackend.onrender/session/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

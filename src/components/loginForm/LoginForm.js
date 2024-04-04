@@ -1,30 +1,36 @@
 import "./LoginForm.css";
 import React, { useState } from 'react';
 
-const LoginForm = ({ setLogin }) => {
+const LoginForm = ({ setLogin, setSessionId }) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [error, setError] = useState(false)
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => {   
         e.preventDefault()
 
         try {
-            const response = await fetch('https://depositbackend.onrender.com/session/login', {
+            const response = await fetch('http://localhost:8080/session/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ email, password }) // Enviar los datos del formulario en formato JSON
+                body: JSON.stringify({ email, password })
             });
 
+            const data = await response.json();
+
             if (response.ok) {
-                console.log('Successful login');
-                setLogin(true); // Establecer el estado de inicio de sesión como verdadero
-                // Aquí puedes redirigir al usuario a otra página o realizar otras acciones después del inicio de sesión exitoso
+                try {
+                    console.log("Succesful login")
+                    setSessionId(data.payload.session)
+                    localStorage.setItem('sessionId', data.payload.session); // Almacenar sessionId en el almacenamiento local
+                    setLogin(true);
+                } catch (error) {
+                    console.log(error)
+                }
+                
             } else {
                 console.error('Login failed');
-                // Aquí puedes mostrar un mensaje de error al usuario
             }
         } catch (error) {
             console.log('Error during login:', error);
@@ -50,10 +56,10 @@ const LoginForm = ({ setLogin }) => {
                     />
                     <button type="submit">Login</button>
                 </form>
-                {error && <p>Todos los campos son obligatorios</p>}
             </div>
         </div>
     );
 }
 
 export default LoginForm;
+

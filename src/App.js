@@ -11,7 +11,6 @@ function App() {
   const [showAddProductForm, setShowAddProductForm] = useState(false);
 
   useEffect(() => {
-    // Recuperar sessionId del almacenamiento local al cargar la página
     const storedSessionId = localStorage.getItem('sessionId');
     if (storedSessionId) {
       setSessionId(storedSessionId);
@@ -19,11 +18,10 @@ function App() {
   }, [sessionId]);
 
   useEffect(() => {
-    // Verificar si sessionId tiene un valor válido
     if (sessionId) {
-      setLogin(true); // Si sessionId es válido, establecer login en true
+      setLogin(true);
     } else {
-      setLogin(false); // Si no hay sessionId válido, establecer login en false
+      setLogin(false);
     }
   }, [sessionId]);
 

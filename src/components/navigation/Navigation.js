@@ -5,7 +5,7 @@ const Navigation = ({ setLogin, sessionId, secondButton, title }) => {
     const logout = async (e) => {
         e.preventDefault();
         try {
-            const responseLogout = await fetch(`http://localhost:8080/session/logout/${sessionId}`, {
+            const responseLogout = await fetch(`http://depositbackend.onrender/session/logout/${sessionId}`, {
                 method: "DELETE",
                 credentials: "include"
             });

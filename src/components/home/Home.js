@@ -7,11 +7,11 @@ const Home = ({ products, sessionId, setProducts, setLogin, setShowAddProductFor
 
     const getProducts = async () => {
         try {
-            const responseProducts = await fetch("http://localhost:8080/products")
+            const responseProducts = await fetch("http://depositbackend.onrender/products")
             const data = await responseProducts.json();
             const productsApi = data.payload
             if (responseProducts.ok) {
-                setProducts(productsApi); // Actualizar el estado de los productos
+                setProducts(productsApi);
             }
         } catch (error) {
             console.log(error)
@@ -20,7 +20,7 @@ const Home = ({ products, sessionId, setProducts, setLogin, setShowAddProductFor
 
     const deleteProduct = async (productId) => {
         try {
-            const responseDelete = await fetch(`http://localhost:8080/products/${productId}`, {
+            const responseDelete = await fetch(`http://depositbackend.onrender/products/${productId}`, {
                 method: "DELETE"
             });
             const data = await responseDelete.json();
@@ -39,7 +39,7 @@ const Home = ({ products, sessionId, setProducts, setLogin, setShowAddProductFor
     }
     
     useEffect(() => {
-        getProducts(); // Obtener productos al cargar el componente
+        getProducts();
     }, []);
 
     return (

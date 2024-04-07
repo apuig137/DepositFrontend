@@ -8,8 +8,8 @@ const LoginForm = ({ setLogin, setSessionId }) => {
     const handleSubmit = async (e) => {   
         e.preventDefault()
 
-        try {
-            const response = await fetch('https://depositbackend.onrender/session/login', {
+        try { 
+            const response = await fetch('https://depositbackend.onrender.com/session/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

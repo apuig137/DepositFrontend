@@ -79,12 +79,6 @@ const AddProductForm = ({ setShowAddProductForm, sessionId, setLogin }) => {
                             value={quantity} 
                             onChange={e => setQuantity(e.target.value)}
                         />
-                        <input 
-                            type="text" 
-                            placeholder="Batch" 
-                            value={batch} 
-                            onChange={e => setBatch(e.target.value)}
-                        />
                         <button type="submit">Add product</button>
                     </form>
                 </div>

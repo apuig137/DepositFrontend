@@ -21,7 +21,6 @@ const LoginForm = ({ setLogin, setSessionId }) => {
 
             if (response.ok) {
                 try {
-                    console.log("Succesful login")
                     setSessionId(data.payload.session)
                     localStorage.setItem('sessionId', data.payload.session); // Almacenar sessionId en el almacenamiento local
                     setLogin(true);

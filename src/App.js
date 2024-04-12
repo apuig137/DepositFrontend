@@ -9,12 +9,14 @@ function App() {
   const [sessionId, setSessionId] = useState("")
   const [products, setProducts] = useState([])
   const [showAddProductForm, setShowAddProductForm] = useState(false);
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const storedSessionId = localStorage.getItem('sessionId');
     if (storedSessionId) {
       setSessionId(storedSessionId);
     }
+    setLoading(false)
   }, [sessionId]);
 
   useEffect(() => {

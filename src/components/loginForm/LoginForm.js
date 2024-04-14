@@ -1,5 +1,6 @@
 import "./LoginForm.css";
 import React, { useState } from 'react';
+import Swal from 'sweetalert2';
 
 const LoginForm = ({ setLogin, setSessionId }) => {
     const [email, setEmail] = useState("")
@@ -17,12 +18,28 @@ const LoginForm = ({ setLogin, setSessionId }) => {
                 body: JSON.stringify({ email, password })
             });
 
+            if (response.status === 401) {
+                console.error('Unauthorized');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid credentials',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                return;
+            }
+
             const data = await response.json();
 
             if (response.ok) {
                 try {
                     setSessionId(data.payload.session)
-                    localStorage.setItem('sessionId', data.payload.session); // Almacenar sessionId en el almacenamiento local
+                    const expirationTime = new Date(Date.now() + (1 * 60 * 60 * 1000));
+                    const sessionData = {
+                        session: data.payload.session,
+                        expiresAt: expirationTime.getTime()
+                    };
+                    localStorage.setItem('sessionData', JSON.stringify(sessionData));
                     setLogin(true);
                 } catch (error) {
                     console.log(error)
@@ -30,6 +47,12 @@ const LoginForm = ({ setLogin, setSessionId }) => {
                 
             } else {
                 console.error('Login failed');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Invalid credentials',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             }
         } catch (error) {
             console.log('Error during login:', error);

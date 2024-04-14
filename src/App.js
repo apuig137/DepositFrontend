@@ -2,6 +2,7 @@ import './App.css';
 import Home from './components/home/Home.js';
 import LoginForm from './components/loginForm/LoginForm.js';
 import AddProductForm from './components/addProductForm/AddProductForm.js';
+import Spinner from './components/spinner/Spinner.js'; // Importa el componente Spinner
 import { useState, useEffect } from 'react';
 
 function App() {
@@ -17,6 +18,14 @@ function App() {
       setSessionId(storedSessionId);
     }
     setLoading(false)
+
+    const handleBeforeUnload = async () => {
+      if (sessionId) {
+        localStorage.removeItem('sessionData');
+      }
+    };
+    window.addEventListener('unload', handleBeforeUnload);
+
   }, [sessionId]);
 
   useEffect(() => {
@@ -29,6 +38,7 @@ function App() {
 
   return (
     <div>
+      {loading ? <Spinner /> : null} 
       {!login ? (
         <LoginForm setLogin={setLogin} setSessionId={setSessionId} />
       ) : (
@@ -45,4 +55,3 @@ function App() {
 }
 
 export default App;
-

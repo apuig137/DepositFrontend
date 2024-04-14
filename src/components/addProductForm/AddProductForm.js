@@ -16,7 +16,6 @@ const AddProductForm = ({ setShowAddProductForm, sessionId, setLogin }) => {
         setExpiration("");
         setPrice("");
         setQuantity("");
-        setBatch("");
     };
 
     const addProduct = async (e) => {
@@ -27,7 +26,7 @@ const AddProductForm = ({ setShowAddProductForm, sessionId, setLogin }) => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ name, expiration, price, quantity, batch })
+                body: JSON.stringify({ name, expiration, price, quantity })
             });
             if (response.ok) {
                 Swal.fire({

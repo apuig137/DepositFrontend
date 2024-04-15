@@ -2,11 +2,13 @@ import React, { useEffect } from 'react';
 import "./Home.css"
 import Navigation from '../navigation/Navigation.js';
 import AddProductButton from './AddProductButton.js';
+import Spinner from '../spinner/Spinner.js';
 
-const Home = ({ products, sessionId, setProducts, setLogin, setShowAddProductForm }) => {
+const Home = ({ products, sessionId, setProducts, setLogin, setShowAddProductForm, loading, setLoading }) => {
 
     const getProducts = async () => {
         try {
+            setLoading(true);
             const responseProducts = await fetch("https://depositbackend.onrender.com/products")
             const data = await responseProducts.json();
             const productsApi = data.payload
@@ -15,6 +17,8 @@ const Home = ({ products, sessionId, setProducts, setLogin, setShowAddProductFor
             }
         } catch (error) {
             console.log(error)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -23,7 +27,6 @@ const Home = ({ products, sessionId, setProducts, setLogin, setShowAddProductFor
             const responseDelete = await fetch(`https://depositbackend.onrender.com/products/${productId}`, {
                 method: "DELETE"
             });
-            const data = await responseDelete.json();
             if (responseDelete.ok) {
                 const updatedProducts = products.map(product => {
                     if (product._id === productId) {
@@ -42,9 +45,17 @@ const Home = ({ products, sessionId, setProducts, setLogin, setShowAddProductFor
         getProducts();
     }, []);
 
+    if(loading){
+        return (
+            <div>
+                <Spinner/>
+            </div>
+        )
+    }
+
     return (
         <div>
-            <Navigation setLogin={setLogin} sessionId={sessionId} title="STOCK" secondButton={<AddProductButton setShowAddProductForm={setShowAddProductForm} />} />
+            <Navigation setLogin={setLogin} sessionId={sessionId} title="STOCK" secondButton={<AddProductButton setShowAddProductForm={setShowAddProductForm} loading={loading} setLoading={setLoading} />} />
             
             <div className='card-container'>
                 {products.map(product => (

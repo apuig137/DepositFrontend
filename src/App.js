@@ -2,7 +2,6 @@ import './App.css';
 import Home from './components/home/Home.js';
 import LoginForm from './components/loginForm/LoginForm.js';
 import AddProductForm from './components/addProductForm/AddProductForm.js';
-import Spinner from './components/spinner/Spinner.js'; // Importa el componente Spinner
 import { useState, useEffect } from 'react';
 
 function App() {
@@ -12,8 +11,23 @@ function App() {
   const [showAddProductForm, setShowAddProductForm] = useState(false);
   const [loading, setLoading] = useState(true)
 
+  const storedSessionId = localStorage.getItem('sessionId');
+
   useEffect(() => {
-    const storedSessionId = localStorage.getItem('sessionId');
+    const intervalId = setInterval(() => {
+      const storedSessionData = localStorage.getItem('sessionData');
+      if (storedSessionData) {
+        const sessionData = JSON.parse(storedSessionData);
+        const currentTime = new Date().getTime();
+        if (currentTime >= sessionData.expiresAt) {
+          setLogin(false);
+        }
+      }
+    }, 10000);
+    return () => clearInterval(intervalId);
+  }, []);
+
+  useEffect(() => {
     if (storedSessionId) {
       setSessionId(storedSessionId);
     }
@@ -38,15 +52,14 @@ function App() {
 
   return (
     <div>
-      {loading ? <Spinner /> : null} 
       {!login ? (
-        <LoginForm setLogin={setLogin} setSessionId={setSessionId} />
+        <LoginForm setLogin={setLogin} setSessionId={setSessionId} loading={loading} setLoading={setLoading} />
       ) : (
         <>
           {showAddProductForm ? (
-            <AddProductForm setShowAddProductForm={setShowAddProductForm} sessionId={sessionId} setLogin={setLogin} />
+            <AddProductForm setShowAddProductForm={setShowAddProductForm} sessionId={sessionId} setLogin={setLogin} loading={loading} setLoading={setLoading}/>
           ) : (
-            <Home products={products} sessionId={sessionId} setProducts={setProducts} setLogin={setLogin} setShowAddProductForm={setShowAddProductForm} />
+            <Home products={products} sessionId={sessionId} setProducts={setProducts} setLogin={setLogin} setShowAddProductForm={setShowAddProductForm} loading={loading} setLoading={setLoading} />
           )}
         </>
       )}
@@ -55,3 +68,4 @@ function App() {
 }
 
 export default App;
+

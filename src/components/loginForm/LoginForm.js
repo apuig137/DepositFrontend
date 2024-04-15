@@ -1,15 +1,17 @@
 import "./LoginForm.css";
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
+import Spinner from "../spinner/Spinner.js";
 
-const LoginForm = ({ setLogin, setSessionId }) => {
+const LoginForm = ({ setLogin, setSessionId, loading, setLoading }) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
     const handleSubmit = async (e) => {   
         e.preventDefault()
 
-        try { 
+        try {
+            setLoading(true);
             const response = await fetch('https://depositbackend.onrender.com/session/login', {
                 method: 'POST',
                 headers: {
@@ -56,9 +58,19 @@ const LoginForm = ({ setLogin, setSessionId }) => {
             }
         } catch (error) {
             console.log('Error during login:', error);
+        } finally {
+            setLoading(false);
         }
     }
-    
+
+    if(loading) {
+        return (
+            <div>
+                <Spinner/>
+            </div>
+        )
+    }
+
     return (
         <div className="display-login-form">
             <div className="login-form">

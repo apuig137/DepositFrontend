@@ -5,7 +5,7 @@ import ShowProductsButton from "./ShowProductsButton.js";
 import Swal from 'sweetalert2';
 import Spinner from "../spinner/Spinner.js";
 
-const AddProductForm = ({ setShowAddProductForm, sessionId, setLogin, loading, setLoading }) => {
+const AddProductForm = ({ setShowAddProductForm, setLogin, loading, setLoading }) => {
     const [name, setName] = useState("")
     const [expiration, setExpiration] = useState("")
     const [price, setPrice] = useState("")
@@ -61,7 +61,7 @@ const AddProductForm = ({ setShowAddProductForm, sessionId, setLogin, loading, s
 
     return (
         <div>
-            <Navigation setLogin={setLogin} sessionId={sessionId} title="ADD PRODUCT" secondButton={<ShowProductsButton setShowAddProductForm={setShowAddProductForm} loading={loading} setLoading={setLoading} />} />
+            <Navigation setLogin={setLogin} title="ADD PRODUCT" secondButton={<ShowProductsButton setShowAddProductForm={setShowAddProductForm} loading={loading} setLoading={setLoading} />} />
             <div className="add-product-container">
                 <div className="add-product-form">
                     <form className="login-form-items" onSubmit={addProduct}>

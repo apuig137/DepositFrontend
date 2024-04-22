@@ -4,7 +4,7 @@ import Navigation from '../navigation/Navigation.js';
 import AddProductButton from './AddProductButton.js';
 import Spinner from '../spinner/Spinner.js';
 
-const Home = ({ products, sessionId, setProducts, setLogin, setShowAddProductForm, loading, setLoading }) => {
+const Home = ({ products, setProducts, setLogin, setShowAddProductForm, loading, setLoading }) => {
 
     const getProducts = async () => {
         try {
@@ -55,7 +55,7 @@ const Home = ({ products, sessionId, setProducts, setLogin, setShowAddProductFor
 
     return (
         <div>
-            <Navigation setLogin={setLogin} sessionId={sessionId} title="STOCK" secondButton={<AddProductButton setShowAddProductForm={setShowAddProductForm} loading={loading} setLoading={setLoading} />} />
+            <Navigation setLogin={setLogin} title="STOCK" secondButton={<AddProductButton setShowAddProductForm={setShowAddProductForm} loading={loading} setLoading={setLoading} />} />
             
             <div className='card-container'>
                 {products.map(product => (

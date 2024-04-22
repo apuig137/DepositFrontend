@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 import Spinner from "../spinner/Spinner.js";
 
-const LoginForm = ({ setLogin, setSessionId, loading, setLoading }) => {
+const LoginForm = ({ setLogin, loading, setLoading }) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
@@ -35,13 +35,9 @@ const LoginForm = ({ setLogin, setSessionId, loading, setLoading }) => {
 
             if (response.ok) {
                 try {
-                    setSessionId(data.payload.session)
                     const expirationTime = new Date(Date.now() + (1 * 60 * 60 * 1000));
-                    const sessionData = {
-                        session: data.payload.session,
-                        expiresAt: expirationTime.getTime()
-                    };
-                    localStorage.setItem('sessionData', JSON.stringify(sessionData));
+                    localStorage.setItem('expiration', expirationTime);
+                    localStorage.setItem('sessionData', data.payload.session);
                     setLogin(true);
                 } catch (error) {
                     console.log(error)

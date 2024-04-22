@@ -1,16 +1,19 @@
 import React from "react";
 import "./Navigation.css"
 
-const Navigation = ({ setLogin, sessionId, secondButton, title }) => {
+const Navigation = ({ setLogin, secondButton, title }) => {
     const logout = async (e) => {
         e.preventDefault();
+        const storedSessionId = localStorage.getItem('sessionData');
         try {
-            const responseLogout = await fetch(`https://depositbackend.onrender.com/session/logout/${sessionId}`, {
+            const responseLogout = await fetch(`https://depositbackend.onrender.com/session/logout/${storedSessionId}`, {
                 method: "DELETE",
                 credentials: "include"
             });
             if (responseLogout.ok) {
                 setLogin(false);
+                localStorage.removeItem('sessionData')
+                localStorage.removeItem('expiration')
             } else {
                 console.log('Logout failed');
             }

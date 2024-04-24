@@ -24,7 +24,7 @@ const Home = ({ products, setProducts, setLogin, setShowAddProductForm, loading,
 
     const deleteProduct = async (productId) => {
         try {
-            const responseDelete = await fetch(`http://localhost:8080/products/${productId}`, {
+            const responseDelete = await fetch(`https://depositbackend.onrender.com/products/${productId}`, {
                 method: "DELETE"
             });
             if (responseDelete.ok) {

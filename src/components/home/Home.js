@@ -24,6 +24,7 @@ const Home = ({ products, setProducts, setLogin, setShowAddProductForm, loading,
 
     const deleteProduct = async (productId) => {
         try {
+            setLoading(true);
             const responseDelete = await fetch(`https://depositbackend.onrender.com/products/${productId}`, {
                 method: "DELETE"
             });
@@ -38,6 +39,9 @@ const Home = ({ products, setProducts, setLogin, setShowAddProductForm, loading,
             }
         } catch (error) {
             console.log(error);
+        } finally {
+            await getProducts()
+            setLoading(false);
         }
     }
     

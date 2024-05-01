@@ -38,10 +38,23 @@ const AddProductForm = ({ setShowAddProductForm, setLogin, loading, setLoading }
                 });
                 resetForm();
             } else {
+                let errorMessage = "An unknown error occurred";
+                if(response.status === 400) {
+                    errorMessage = "All fields are required"
+                }
+                if(response.status === 401) {
+                    errorMessage = "Price and quantity must be numbers"
+                }
+                if (response.status === 402) {
+                    errorMessage = "Quantity and price must be positive"
+                }
+                if (response.status === 403) {
+                    errorMessage = "The product is expired"
+                }
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
-                    text: 'All fields must be valid',
+                    text: errorMessage
                 });
             }
         } catch (error) {

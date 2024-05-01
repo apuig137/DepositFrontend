@@ -14,19 +14,33 @@ function App() {
     const storedSessionId = localStorage.getItem('sessionData');
     const storedExpiration = localStorage.getItem('expiration');
     const expirationDate = new Date(storedExpiration);
-    const currentTime = new Date(Date.now());
-    console.log(currentTime)
-    console.log(expirationDate)
-
-    if (storedSessionId && storedExpiration) {
-      if (currentTime < expirationDate) {
-        setLogin(true);
-      } else {
-        localStorage.removeItem('sessionData');
-        localStorage.removeItem('expiration');
+    const currentTime = new Date();
+  
+    if (!storedSessionId || currentTime >= expirationDate) {
+      localStorage.removeItem('sessionData');
+      localStorage.removeItem('expiration');
+      setLogin(false);
+    } else {
+      setLogin(true);
+    }
+  }, []);
+  
+  useEffect(() => {
+    const checkSessionValidity = () => {
+      const storedExpiration = localStorage.getItem('expiration');
+      const expirationDate = new Date(storedExpiration);
+      const currentTime = new Date();
+  
+      if (currentTime >= expirationDate) {
         setLogin(false);
       }
-    }
+    };
+  
+    const intervalId = setInterval(checkSessionValidity, 30000);
+  
+    return () => {
+      clearInterval(intervalId);
+    };
   }, []);
 
   return (

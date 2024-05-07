@@ -23,8 +23,7 @@ const AddProductForm = ({ setShowAddProductForm, setShowExpiredProducts, setLogi
         e.preventDefault()
         try {
             setLoading(true);
-            //const response = await fetch('https://depositbackend.onrender.com/products/', {
-            const response = await fetch('http://localhost:8080/products/', {
+            const response = await fetch('https://depositbackend.onrender.com/products/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

@@ -1,10 +1,11 @@
 nav{
     margin-bottom: 40px;
-    background-color: #474747;
+    background-color: #b4bfc785;
+    border-bottom: 2px solid #0023418e;
 }
 
 nav a{
-    color: #fff;
+    color: #0023418e;
     text-decoration: none;
 }
 
@@ -13,6 +14,10 @@ nav a{
     align-items: center;
     justify-content: space-between;
     padding: 10px 0;
+}
+
+.nav-container button:hover{
+    box-shadow: 0px 0px 7px 1px #00000041;
 }
 
 .title-container{
@@ -30,28 +35,93 @@ nav a{
 .logout-button{
     height: 40px;
     width: 100px;
+    margin: 0 0 0 15px;
+    border: 2px solid #ad0000;
+    color: #ad0000;
+    background-color: #c4000052;
+    font-weight: bold;
     transition-duration: 0.5s;
-    border-radius: 8px;
-    background-color: #dc3545;
-    border: 2px solid #791c25;
+}
+
+
+.logout-button:hover{
+    border: 2px solid #ad000086;
     color: #fff;
+    background-color: #ad000086;
+}
+
+.show-add-product{
+    height: 40px;
+    width: 175px;
+    color: #004b06;
+    border: 2px solid #004b06;
+    background-color: #00570059;
+    font-weight: bold;
+    transition-duration: 0.5s;
+}
+
+.show-add-product:hover{
+    border: 2px solid #00570086;
+    color: #fff;
+    background-color: #00570086;
+}
+
+.show-expired-products{
+    width: 175px;
+    height: 40px;
+    color: #72480a;
+    background-color: #cf7e1586;
+    border: 2px solid #72480a;
+    font-weight: bold;
+    transition-duration: 0.5s;
+    margin-left: 15px;
+}
+
+.show-expired-products:hover{
+    border: 2px solid #72480a;
+    color: #fff;
+    background-color: #cf7e15bd;
+}
+
+.show-products{
+    width: 175px;
+    height: 40px;
+    color: #113e58;
+    background-color: #1e6a9686;
+    border: 2px solid #113e58;
+    font-weight: bold;
+    transition-duration: 0.5s;
     margin: 0 0 0 15px;
 }
 
-.logout-button:hover{
-    background-color: #fff;
-    color: #000;
+.show-products:hover{
+    border: 2px solid #113e58;
+    color: #fff;
+    background-color: #1e6a96bd;
 }
 
-@media (max-width: 480px) {
-    .title{
+.dropdown-toggle{
+    border-radius: 0px;
+    border: 2px solid #494c4e;
+    background-color: #6c757d86;
+    font-weight: bold;
+    color: #494c4e;
+    transition-duration: 0.5s;
+}
+
+.dropdown-toggle:hover{
+    border: 2px solid #424242;
+    background-color: #6c757d;
+}
+
+@media (min-width: 600px) {
+    .dropdown-center{
         display: none;
     }
+}
 
-    .nav-container{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 10px 0;
+@media (max-width: 599px) {
+    .nav-button-display{
+        display: none;
     }
 }

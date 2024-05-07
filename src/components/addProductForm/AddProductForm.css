@@ -13,7 +13,6 @@
     width: 400px;
     height: 60%;
     border: 5px solid #113e58;
-    border-radius: 10px;
     background-color: #1e6a96;
     padding: 20px;
     color: #fff;
@@ -30,19 +29,4 @@
     align-items: center;
     flex-direction: column;
     width: 200px;
-}
-
-.show-products{
-    width: 175px;
-    height: 40px;
-    color: #fff;
-    background-color: #1e6a96;
-    border: 2px solid #113e58;
-    border-radius: 8px;
-    transition-duration: 0.5s;
-}
-
-.show-products:hover{
-    color: #000;
-    background-color: #fff;
 }

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import "./AddProductForm.css"
 import Navigation from "../navigation/Navigation.js";
-import ShowProductsButton from "./ShowProductsButton.js";
+import ShowProductsButton from "../buttons/ShowProductsButton.js";
+import ShowExpiredProductsButton from "../buttons/ShowExpiredProductsButton.js";
 import Swal from 'sweetalert2';
 import Spinner from "../spinner/Spinner.js";
 
-const AddProductForm = ({ setShowAddProductForm, setLogin, loading, setLoading }) => {
+const AddProductForm = ({ setShowAddProductForm, setShowExpiredProducts, setLogin, loading, setLoading }) => {
     const [name, setName] = useState("")
     const [expiration, setExpiration] = useState("")
     const [price, setPrice] = useState("")
@@ -22,7 +23,8 @@ const AddProductForm = ({ setShowAddProductForm, setLogin, loading, setLoading }
         e.preventDefault()
         try {
             setLoading(true);
-            const response = await fetch('https://depositbackend.onrender.com/products/', {
+            //const response = await fetch('https://depositbackend.onrender.com/products/', {
+            const response = await fetch('http://localhost:8080/products/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -74,7 +76,7 @@ const AddProductForm = ({ setShowAddProductForm, setLogin, loading, setLoading }
 
     return (
         <div>
-            <Navigation setLogin={setLogin} title="ADD PRODUCT" secondButton={<ShowProductsButton setShowAddProductForm={setShowAddProductForm} loading={loading} setLoading={setLoading} />} />
+            <Navigation setShowAddProductForm={setShowAddProductForm} setShowExpiredProducts={setShowExpiredProducts} setLogin={setLogin} title="ADD PRODUCT" thirdButton={<ShowProductsButton setShowAddProductForm={setShowAddProductForm} setShowExpiredProducts={setShowExpiredProducts} loading={loading} setLoading={setLoading} />} secondButton={<ShowExpiredProductsButton setShowAddProductForm={setShowAddProductForm} setShowExpiredProducts={setShowExpiredProducts} />} />
             <div className="add-product-container">
                 <div className="add-product-form">
                     <form className="login-form-items" onSubmit={addProduct}>

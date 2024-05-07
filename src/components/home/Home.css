@@ -1,64 +1,65 @@
-.show-add-product{
-    width: 175px;
-    height: 40px;
-    color: #fff;
-    background-color: #0a720a;
-    border: 2px solid #0a720a;
-    border-radius: 8px;
-    transition-duration: 0.5s;
+.stock{
+    grid-area: stock;
 }
 
-.show-add-product:hover{
-    color: #000;
-    background-color: #fff;
+.name{
+    grid-area: name;
+}
+
+.expiration{
+    grid-area: expiration;
 }
 
 .item-card-container{
     width: 80%;
     margin: 0 auto;
+    padding: 8px;
+    border: 2px solid #0023418e;
+    background-color: #b4bfc785;
+    color: #000000;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    grid-template-areas: "stock name expiration";
+    margin-bottom: 10px;
+    transition-duration: 0.5s;
 }
 
-.item-card-container{
-    border-radius: 15px;
-    padding: 8px;
-    display: flex;
-    align-items: center;
-    background-color: #474747;
-    color: #fff;
-    position: relative;
-    margin-bottom: 10px;
+.item-card-container:hover{
+    box-shadow: 0px 0px 7px 5px rgba(0, 0, 0, 0.253);
 }
 
 .p-card{
     margin: 0 30px;
 }
 
-
-.price{
-    right: 4%;
-    position: absolute;
-}
-
 .button-card{
     position: absolute;
-    width: 40px;
-    height: 40px;
-    right: 0;
-    background-color: #ff4848;
-    color: #fff;
+    width: 44px;
+    height: 44px;
+    right: -2px;
+    bottom: -7px;
+    border: 2px solid #ad0000;
+    color: #ad0000;
+    background-color: #c4000052;
     font-weight: bold;
-    border: none;
-    border-radius: 0 15px 15px 0;
+    transition-duration: 0.5s;
+}
+
+.button-card:hover{
+    border: 2px solid #ad000086;
+    color: #fff;
+    background-color: #ad000086;
 }
 
 
 
-@media (max-width: 600px){
+@media (max-width: 830px){
     .item-card-container{
         display: grid;
         grid-template-columns: auto;
-        grid-template-rows: auto;
-        grid-template-areas: "name" "price";
+        grid-template-rows: repeat(3, auto);
+        grid-template-areas: "stock" "name" "expiration";
         height: 100px;
         align-items: center;
         justify-content: center;
@@ -66,19 +67,30 @@
     .button-card{
         height: 100px;
     }
-    .name{
-        margin-right: 50px;
-    }
-    .price{
+    .p-card{
         position: relative;
+        right: 130px;
     }
 }
 
-@media (max-width: 420px){
-    .item-card-container{
-        height: 150px;
-    }
-    .button-card{
-        height: 150px;
+@media (max-width: 660px){
+    .p-card{
+        position: relative;
+        right: 100px;
     }
 }
+
+@media (max-width: 550px){
+    .p-card{
+        position: relative;
+        right: 85px;
+    }
+}
+
+@media (max-width: 500px){
+    .p-card{
+        position: relative;
+        right: 40px;
+    }
+}
+

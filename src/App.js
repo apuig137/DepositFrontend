@@ -2,12 +2,15 @@ import './App.css';
 import Home from './components/home/Home.js';
 import LoginForm from './components/loginForm/LoginForm.js';
 import AddProductForm from './components/addProductForm/AddProductForm.js';
+import ExpiredProducts from './components/expiredProducts/ExpiredProducts.js';
 import { useState, useEffect } from 'react';
 
 function App() {
   const [login, setLogin] = useState(false)
   const [products, setProducts] = useState([])
+  const [expiredProducts, setExpiredProducts] = useState([])
   const [showAddProductForm, setShowAddProductForm] = useState(false);
+  const [showExpiredProducts, setShowExpiredProducts] = useState(false);
   const [loading, setLoading] = useState(false)
 
   useEffect(() => {
@@ -43,16 +46,29 @@ function App() {
     };
   }, []);
 
+  useEffect(() => {
+    const currentTime = new Date()
+    console.log(currentTime)
+  
+    const intervalId = setInterval(checkSessionValidity, 30000);
+  
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
+
   return (
     <div>
       {!login ? (
         <LoginForm setLogin={setLogin} loading={loading} setLoading={setLoading}/>
       ) : (
         <>
-          {showAddProductForm ? (
-            <AddProductForm setShowAddProductForm={setShowAddProductForm} setLogin={setLogin} loading={loading} setLoading={setLoading}/>
+          { showAddProductForm ? (
+            <AddProductForm setShowAddProductForm={setShowAddProductForm} setShowExpiredProducts={setShowExpiredProducts} setLogin={setLogin} loading={loading} setLoading={setLoading} />
+          ) : showExpiredProducts ? (
+            <ExpiredProducts expiredProducts={expiredProducts} setExpiredProducts={setExpiredProducts} setLogin={setLogin} loading={loading} setLoading={setLoading} setShowAddProductForm={setShowAddProductForm} setShowExpiredProducts={setShowExpiredProducts} />
           ) : (
-            <Home products={products} setProducts={setProducts} setLogin={setLogin} setShowAddProductForm={setShowAddProductForm} loading={loading} setLoading={setLoading} />
+            <Home products={products} setProducts={setProducts} setLogin={setLogin} setShowAddProductForm={setShowAddProductForm} setShowExpiredProducts={setShowExpiredProducts} loading={loading} setLoading={setLoading} />
           )}
         </>
       )}

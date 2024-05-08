@@ -46,16 +46,16 @@ function App() {
     };
   }, []);
 
-  useEffect(() => {
-    const currentTime = new Date()
-    console.log(currentTime)
-  
-    const intervalId = setInterval(checkSessionValidity, 30000);
-  
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
+  //useEffect(() => {
+  //  const currentTime = new Date()
+  //  console.log(currentTime)
+  //
+  //  const intervalId = setInterval(checkSessionValidity, 30000);
+  //
+  //  return () => {
+  //    clearInterval(intervalId);
+  //  };
+  //}, []);
 
   return (
     <div>

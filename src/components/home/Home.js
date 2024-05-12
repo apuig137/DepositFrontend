@@ -41,9 +41,64 @@ const Home = ({ products, setProducts, setLogin, setShowAddProductForm, setShowE
         }
     }
 
+    const expirateProduct = async (productId) => {
+        try {
+            //const responseDelete = await fetch(`https://depositbackend.onrender.com/products/${productId}`, {
+            const responseDelete = await fetch(`http://localhost:8080/products/expirate/${productId}`, {
+                method: "POST"
+            });
+            if (!responseDelete.ok) {
+                throw new Error("Failed to expirate product");
+            }
+        } catch (error) {
+            console.log(error);
+        } finally {
+            await getProducts()
+        }
+    }
+
     useEffect(() => {
         getProducts();
     }, []);
+
+    //useEffect(() => {
+    //    const currentTime = new Date()
+    //    const checkExpirationDate = async () => {
+    //        await products.forEach(p => {
+    //            let expirationProduct = new Date(p.expiration)
+    //            console.log(currentTime)
+    //            console.log(expirationProduct)
+    //            if(currentTime > expirationProduct) {
+    //                console.log("Producto vencido")
+    //                console.log(p._id)
+    //                expirateProduct(p._id)
+    //            }
+    //        });
+    //    }
+    //    const intervalExpiration = setInterval(checkExpirationDate, 30000);
+    //    return () => {
+    //        clearInterval(intervalExpiration);
+    //    };
+    //}, [products]);
+
+    useEffect(() => {
+        const checkExpirationDate = async () => {
+            const currentTime = new Date().getTime();
+            for (const p of products) {
+                const expirationProduct = new Date(p.expiration).getTime();
+                if (currentTime > expirationProduct) {
+                    console.log(p._id);
+                    await expirateProduct(p._id);
+                }
+            }
+        };
+    
+        const intervalExpiration = setInterval(checkExpirationDate, 100000);
+        return () => {
+            clearInterval(intervalExpiration);
+        };
+    }, [products]);
+    
 
     if(loading){
         return (
@@ -63,7 +118,7 @@ const Home = ({ products, setProducts, setLogin, setShowAddProductForm, setShowE
                     const isoDateOnly = dateObject.toISOString().split("T")[0];
                         
                     return (
-                        <div className="item-card-container">
+                        <div className="item-card-container" key={product._id}>
                             <p className="p-card stock">Stock: {product.stock}</p>
                             <p className="p-card name">{product.name}</p>
                             <p className="p-card expiration">Expiration: {isoDateOnly}</p>
